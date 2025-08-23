@@ -47,9 +47,11 @@ def main():
                             match_time=match_data.find("div",class_="MResult").find("span",class_="time").text.strip()
 
                             #le score de chaque match 
-                            score_tag = match_data.find("div", class_="MResult").find("span", class_="score")
+                            score_tag = match_data.find("div", class_="MResult").find_all("span", class_="score")
                             if score_tag:
-                                match_score = score_tag.text.strip()
+                                score_teama = score_tag[0].text.strip()
+                                score_teamb=score_tag[1].text.strip()
+                                match_score=f"{score_teama} - {score_teamb}"
                             else:
                                 match_score = "Non joué"
 
@@ -64,7 +66,7 @@ def main():
                                     
                             })
 
-                        else:
+                      else:
                              print("Aucun match trouvé pour ce championnat :", titre)
 
                  with open("matches.csv","w",newline="",encoding="utf-8") as f:
